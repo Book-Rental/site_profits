@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import type { WidgetOptions } from "./index.widget";
 
-function App() {
-  const [count, setCount] = useState(0)
+import ProfitDashboard from "./pages/ProfitDashboard/ProfitDashboard";
+import Orders from "./pages/Orders/Orders";
+import TransactionDetailsPage from "./pages/TransactionDetails/TransactionDetailsPage";
+import Layout from "./layouts/Layout";
+import SellerPayouts from "./pages/SellerPayouts/SellerPayouts";
+import CustomerSummary from "./pages/CustomerSummary/CustomerSummary";
+import SellerPayoutDetails from "./pages/SellerPayoutDetails/SellerPayoutDetails";
+import CustomerTransactionDetails from "./pages/CustomerTransactionDetails/CustomerTransactionDetails";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface AppProps {
+  options: WidgetOptions;
 }
 
-export default App
+const App = ({ options }: AppProps) => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route
+            path="/"
+            element={<ProfitDashboard options={options} />}
+          />
+
+          <Route
+            path="/profit"
+            element={<ProfitDashboard options={options} />}
+          />
+
+          <Route
+            path="/orders"
+            element={<Orders options={options} />}
+          />
+
+          <Route
+            path="/orders/:orderId/transactions"
+            element={
+              <TransactionDetailsPage options={options} />
+            }
+          />
+
+          <Route
+            path="*"
+            element={<Navigate to="/profit" replace />}
+          />
+
+          <Route
+            path="/seller-payouts"
+            element={<SellerPayouts />}
+          />
+
+          <Route
+            path="/seller-payouts/:sellerId"
+            element={<SellerPayoutDetails />}
+          />
+          <Route
+            path="/customer-summary"
+            element={<CustomerSummary />}
+          />
+
+          <Route
+            path="/customer-summary/:customerId/:type"
+            element={<CustomerTransactionDetails />}
+          />
+  
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;
