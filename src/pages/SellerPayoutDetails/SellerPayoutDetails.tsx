@@ -5,7 +5,7 @@ import {
   IndianRupee,
   Receipt,
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { useSellerPayoutDetails } from "../../hooks/useSellerPayoutDetails";
 
@@ -30,6 +30,9 @@ const formatDate = (date: string) => {
 function SellerPayoutDetails() {
   const { sellerId } = useParams<{ sellerId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const seller = location.state?.seller;
 
   const {
     data,
@@ -93,7 +96,7 @@ function SellerPayoutDetails() {
   return (
     <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
-        {/* Back */}
+
         <button
           onClick={() => navigate("/seller-payouts")}
           className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-slate-900"
@@ -101,25 +104,61 @@ function SellerPayoutDetails() {
           <ArrowLeft size={17} />
           Back to Seller Payouts
         </button>
-
-        {/* Header */}
         <div className="mb-6">
-          <div className="flex items-center gap-3">
-            <div className="mb-6 min-w-0">
-              <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
-                Seller Payout History
-              </h1>
+          <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
+            Seller Payout History
+          </h1>
 
-              <p className="mt-1 text-sm text-slate-800">
-                Detailed history of payouts made to this seller
+          <p className="mt-1 text-sm text-slate-800">
+            Detailed history of payouts made to this seller
+          </p>
+        </div>
+
+        <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="shrink-0">
+              {seller?.profilePic ? (
+                <img
+                  src={seller.profilePic}
+                  alt="Seller"
+                  className="h-14 w-14 rounded-full object-cover"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                    event.currentTarget.nextElementSibling?.classList.remove(
+                      "hidden"
+                    );
+                  }}
+                />
+              ) : null}
+
+              <div
+                className={`flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 text-lg font-semibold text-blue-600 ${seller?.profilePic ? "hidden" : ""
+                  }`}
+              >
+                {seller?.firstName?.charAt(0)?.toUpperCase() || "S"}
+              </div>
+            </div>
+
+            <div className="min-w-0">
+              <h2 className="truncate text-lg font-semibold text-slate-900">
+                {[seller?.firstName, seller?.lastName]
+                  .filter(Boolean)
+                  .join(" ") || "Seller information unavailable"}
+              </h2>
+
+              <p className="mt-1 truncate text-sm text-slate-600">
+                {seller?.email || "No email available"}
+              </p>
+
+              <p className="mt-1 break-all text-xs text-slate-400">
+                Seller ID: {seller?.sellerId || sellerId}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Summary */}
         <div className="mb-6 grid gap-4 sm:grid-cols-2">
-          {/* Total Payout */}
+
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
@@ -142,7 +181,6 @@ function SellerPayoutDetails() {
             </div>
           </div>
 
-          {/* Payout Count */}
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
@@ -166,7 +204,6 @@ function SellerPayoutDetails() {
           </div>
         </div>
 
-        {/* Payout Table */}
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="border-b border-slate-200 px-6 py-5">
             <h2 className="text-lg font-semibold text-slate-900">
@@ -180,7 +217,6 @@ function SellerPayoutDetails() {
 
           {payoutData?.payouts?.length ? (
             <>
-              {/* Desktop */}
               <div className="hidden overflow-x-auto md:block">
                 <table className="w-full min-w-max">
                   <thead className="bg-slate-50">
@@ -253,7 +289,6 @@ function SellerPayoutDetails() {
                 </table>
               </div>
 
-              {/* Mobile */}
               <div className="divide-y divide-slate-100 md:hidden">
                 {payoutData.payouts.map((payout) => (
                   <div
