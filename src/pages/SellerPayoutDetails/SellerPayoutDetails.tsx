@@ -42,7 +42,7 @@ function SellerPayoutDetails() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 p-6">
+      <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
         <div className="mx-auto max-w-7xl">
           <div className="mb-6 h-8 w-48 animate-pulse rounded bg-slate-200" />
 
@@ -59,7 +59,7 @@ function SellerPayoutDetails() {
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-slate-50 p-6">
+      <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
         <div className="mx-auto max-w-7xl">
           <button
             onClick={() => navigate("/seller-payouts")}
@@ -91,7 +91,7 @@ function SellerPayoutDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
+    <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
         {/* Back */}
         <button
@@ -104,9 +104,9 @@ function SellerPayoutDetails() {
 
         {/* Header */}
         <div className="mb-6">
-          <div className="flex items-center gap-3"> 
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900">
+          <div className="flex items-center gap-3">
+            <div className="mb-6 min-w-0">
+              <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
                 Seller Payout History
               </h1>
 
@@ -182,7 +182,7 @@ function SellerPayoutDetails() {
             <>
               {/* Desktop */}
               <div className="hidden overflow-x-auto md:block">
-                <table className="w-full">
+                <table className="w-full min-w-max">
                   <thead className="bg-slate-50">
                     <tr className="text-left text-xs font-semibold uppercase tracking-wide text-slate-900">
                       <th className="px-6 py-4">
@@ -225,13 +225,13 @@ function SellerPayoutDetails() {
                         </td>
 
                         <td className="px-6 py-4">
-                          <span className="font-mono text-sm text-slate-800">
+                          <span className="whitespace-nowrap font-mono text-sm text-slate-800">
                             {payout.transactionId}
                           </span>
                         </td>
 
                         <td className="px-6 py-4">
-                          <span className="font-mono text-sm text-slate-800">
+                          <span className="whitespace-nowrap font-mono text-sm text-slate-800">
                             {payout.orderId}
                           </span>
                         </td>
@@ -260,24 +260,24 @@ function SellerPayoutDetails() {
                     key={payout.transactionId}
                     className="p-5"
                   >
-                    <div className="mb-3 flex items-start justify-between gap-4">
-                      <div>
+                    <div className="mb-3 flex min-w-0 items-start justify-between gap-3">
+                      <div className="min-w-0">
                         <p className="text-xs text-slate-400">
                           Transaction
                         </p>
 
-                        <p className="mt-1 font-mono text-sm font-medium text-slate-700">
+                        <p className="mt-1 break-all font-mono text-sm font-medium text-slate-700">
                           {payout.transactionId}
                         </p>
                       </div>
 
-                      <p className="text-sm font-bold text-slate-900">
+                      <p className="shrink-0 whitespace-nowrap text-sm font-bold text-slate-900">
                         {formatAmount(payout.amount)}
                       </p>
                     </div>
 
                     <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2 text-slate-500">
+                      <div className="flex min-w-0 items-start gap-2 text-slate-500">
                         <CalendarDays size={15} />
                         {formatDate(payout.payoutDate)}
                       </div>
@@ -286,7 +286,7 @@ function SellerPayoutDetails() {
                         <span className="text-slate-400">
                           Order:
                         </span>{" "}
-                        <span className="font-mono text-slate-600">
+                        <span className="break-all font-mono text-slate-600">
                           {payout.orderId}
                         </span>
                       </div>

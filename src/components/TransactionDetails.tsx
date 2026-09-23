@@ -1,4 +1,4 @@
-import { ArrowDownRight,ArrowUpRight,CalendarDays,CreditCard,X,} from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, CalendarDays, CreditCard, X, } from "lucide-react";
 import { useTransactionDetails } from "../hooks/useTransactionDetails";
 
 interface TransactionDetailsProps {
@@ -146,7 +146,8 @@ const TransactionDetails = ({
                                         >
                                             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
-                                                <div className="flex items-start gap-3">
+                                                <div className="flex min-w-0 items-start gap-3">
+
                                                     <div
                                                         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isCredit
                                                                 ? "bg-emerald-50 text-emerald-600"
@@ -160,8 +161,8 @@ const TransactionDetails = ({
                                                         )}
                                                     </div>
 
-                                                    <div>
-                                                        <p className="text-sm font-semibold capitalize text-slate-900">
+                                                    <div className="min-w-0">
+                                                        <p className="break-words text-sm font-semibold capitalize text-slate-900">
                                                             {transaction.transactionType
                                                                 .replace(/_/g, " ")
                                                                 .toLowerCase()}
@@ -170,13 +171,11 @@ const TransactionDetails = ({
                                                         <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-slate-400">
                                                             <span className="flex items-center gap-1">
                                                                 <CalendarDays size={12} />
-                                                                {formatDate(
-                                                                    transaction.createdAt
-                                                                )}
+                                                                {formatDate(transaction.createdAt)}
                                                             </span>
 
                                                             {transaction.paymentMethod && (
-                                                                <span className="flex items-center gap-1">
+                                                                <span className="flex items-center gap-1 break-words">
                                                                     <CreditCard size={12} />
                                                                     {transaction.paymentMethod}
                                                                 </span>
@@ -185,22 +184,19 @@ const TransactionDetails = ({
                                                     </div>
                                                 </div>
 
-                                                <div className="sm:text-right">
+                                                <div className="shrink-0 sm:text-right">
                                                     <p
-                                                        className={`text-base font-bold ${isCredit
+                                                        className={`whitespace-nowrap text-base font-bold ${isCredit
                                                                 ? "text-emerald-600"
                                                                 : "text-red-600"
                                                             }`}
                                                     >
                                                         {isCredit ? "+" : "-"}
-                                                        {formatAmount(
-                                                            transaction.totalAmount
-                                                        )}
+                                                        {formatAmount(transaction.totalAmount)}
                                                     </p>
 
                                                     <span
-                                                        className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold ${transaction.paymentStatus ===
-                                                                "SUCCESS"
+                                                        className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold ${transaction.paymentStatus === "SUCCESS"
                                                                 ? "bg-emerald-50 text-emerald-700"
                                                                 : "bg-slate-100 text-slate-500"
                                                             }`}
@@ -208,6 +204,7 @@ const TransactionDetails = ({
                                                         {transaction.paymentStatus}
                                                     </span>
                                                 </div>
+
                                             </div>
                                         </div>
                                     );

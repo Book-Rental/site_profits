@@ -17,7 +17,7 @@ const TransactionDetailsPage = ({
 
     if (!orderId) {
         return (
-            <div className="min-h-screen bg-slate-50 p-6">
+            <div className="min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8">
                 <div className="mx-auto max-w-4xl">
                     <p className="text-sm text-red-600">
                         Order ID is missing.
@@ -29,16 +29,18 @@ const TransactionDetailsPage = ({
 
     return (
         <div className="min-h-screen bg-slate-50">
-            <main className="p-4 sm:p-6 lg:p-8">
-                <div className="mx-auto max-w-4xl">
+            <main className="min-w-0 p-4 sm:p-6 lg:p-8">
+                <div className="mx-auto min-w-0 max-w-4xl">
 
                     <button
                         type="button"
                         onClick={() => navigate("/orders")}
-                        className="mb-5 flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-slate-900"
+                        className="mb-5 flex max-w-full items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-slate-900"
                     >
-                        <ArrowLeft size={17} />
-                        Back to Orders
+                        <ArrowLeft size={17} className="shrink-0" />
+                        <span className="truncate">
+                            Back to Orders
+                        </span>
                     </button>
 
                     <TransactionDetails
