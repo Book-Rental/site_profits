@@ -1,6 +1,5 @@
 import {
   ArrowLeft,
-  IndianRupee,
   RefreshCw,
   Users,
   Wallet,
@@ -131,16 +130,14 @@ function SellerPayouts() {
             {/* Summary */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-white-400">
+                <div className="flex min-w-0 items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-slate-900">
                       Total Seller Payouts
                     </p>
 
-                    <p className="mt-2 text-3xl font-bold">
-                      {formatAmount(
-                        payoutData.totalSellerPayout
-                      )}
+                    <p className="mt-2 whitespace-nowrap text-2xl font-bold text-slate-900 sm:text-3xl">
+                      {formatAmount(payoutData.totalSellerPayout)}
                     </p>
 
                     <p className="mt-2 text-sm text-slate-800">
@@ -148,8 +145,8 @@ function SellerPayouts() {
                     </p>
                   </div>
 
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
-                    <Wallet size={21} color="blue" />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                    <Wallet size={21} />
                   </div>
                 </div>
               </div>
@@ -179,8 +176,8 @@ function SellerPayouts() {
 
             {/* Seller table */}
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-                <div>
+              <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-4">
+                <div className="min-w-0">
                   <h2 className="font-semibold text-slate-900">
                     Seller Breakdown
                   </h2>
@@ -193,7 +190,7 @@ function SellerPayouts() {
                 <button
                   onClick={() => refetch()}
                   disabled={isFetching}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50"
                   title="Refresh"
                 >
                   <RefreshCw
@@ -225,7 +222,7 @@ function SellerPayouts() {
                 <>
                   {/* Desktop */}
                   <div className="hidden overflow-x-auto md:block">
-                    <table className="w-full">
+                    <table className="w-full min-w-[760px]">
                       <thead>
                         <tr className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wider text-slate-800">
                           <th className="px-5 py-4">
@@ -287,20 +284,22 @@ function SellerPayouts() {
                                     )}
                                   </div>
 
-                                  <div>
-                                    <p className="font-medium text-slate-900">
+                                  <div className="min-w-0">
+                                    <p className="truncate font-medium text-slate-900">
                                       {sellerName}
                                     </p>
 
-                                    <p className="text-xs text-slate-800">
+                                    <p className="truncate text-xs text-slate-800">
                                       {seller.sellerId}
                                     </p>
                                   </div>
                                 </div>
                               </td>
 
-                              <td className="px-5 py-4 text-sm text-slate-800">
-                                {seller.email || "—"}
+                              <td className="max-w-[240px] px-5 py-4 text-sm text-slate-800">
+                                <span className="block truncate">
+                                  {seller.email || "—"}
+                                </span>
                               </td>
 
                               <td className="px-5 py-4 text-center">
@@ -317,11 +316,9 @@ function SellerPayouts() {
                                 </span>
                               </td>
 
-                              <td className="px-5 py-4 text-right">
+                              <td className="whitespace-nowrap px-5 py-4 text-right">
                                 <span className="font-semibold text-slate-900">
-                                  {formatAmount(
-                                    seller.totalPayout
-                                  )}
+                                  {formatAmount(seller.totalPayout)}
                                 </span>
                               </td>
                             </tr>
@@ -344,7 +341,7 @@ function SellerPayouts() {
                           key={seller.sellerId}
                           className="p-5"
                         >
-                          <div className="flex items-start justify-between gap-4">
+                          <div className="flex min-w-0 items-start justify-between gap-3">
                             <div className="flex items-center gap-3">
                               {seller.profilePic ? (
                                 <img
@@ -373,26 +370,24 @@ function SellerPayouts() {
                                 )}
                               </div>
 
-                              <div>
-                                <p className="font-semibold text-slate-900">
+                              <div className="min-w-0">
+                                <p className="truncate font-semibold text-slate-900">
                                   {sellerName}
                                 </p>
 
-                                <p className="mt-0.5 text-xs text-slate-400">
+                                <p className="mt-0.5 truncate text-xs text-slate-400">
                                   {seller.email || "No email available"}
                                 </p>
                               </div>
                             </div>
 
-                            <div className="text-right">
+                            <div className="shrink-0 text-right">
                               <p className="text-xs text-slate-400">
                                 Total Paid
                               </p>
 
-                              <p className="mt-1 font-bold text-slate-900">
-                                {formatAmount(
-                                  seller.totalPayout
-                                )}
+                              <p className="mt-1 whitespace-nowrap font-bold text-slate-900">
+                                {formatAmount(seller.totalPayout)}
                               </p>
                             </div>
                           </div>
@@ -402,15 +397,15 @@ function SellerPayouts() {
                               Number of payouts
                             </span>
 
-                            <span className="text-sm font-semibold text-slate-700">
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  navigate(`/seller-payouts/${seller.sellerId}`)
-                                }>
-                                {seller.payoutCount}
-                              </button>
-                            </span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                navigate(`/seller-payouts/${seller.sellerId}`)
+                              }
+                              className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+                            >
+                              {seller.payoutCount}
+                            </button>
                           </div>
                         </div>
                       );

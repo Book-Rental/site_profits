@@ -1,6 +1,5 @@
 import {
   ArrowLeft,
-  IndianRupee,
   RefreshCw,
   RotateCcw,
   Users,

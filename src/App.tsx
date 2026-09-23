@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  MemoryRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+
 import type { WidgetOptions } from "./index.widget";
 
 import ProfitDashboard from "./pages/ProfitDashboard/ProfitDashboard";
@@ -16,7 +22,7 @@ interface AppProps {
 
 const App = ({ options }: AppProps) => {
   return (
-    <BrowserRouter>
+    <MemoryRouter initialEntries={["/profit"]}>
       <Routes>
         <Route element={<Layout />}>
           <Route
@@ -42,11 +48,6 @@ const App = ({ options }: AppProps) => {
           />
 
           <Route
-            path="*"
-            element={<Navigate to="/profit" replace />}
-          />
-
-          <Route
             path="/seller-payouts"
             element={<SellerPayouts />}
           />
@@ -55,6 +56,7 @@ const App = ({ options }: AppProps) => {
             path="/seller-payouts/:sellerId"
             element={<SellerPayoutDetails />}
           />
+
           <Route
             path="/customer-summary"
             element={<CustomerSummary />}
@@ -64,10 +66,14 @@ const App = ({ options }: AppProps) => {
             path="/customer-summary/:customerId/:type"
             element={<CustomerTransactionDetails />}
           />
-  
+
+          <Route
+            path="*"
+            element={<Navigate to="/profit" replace />}
+          />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </MemoryRouter>
   );
 };
 

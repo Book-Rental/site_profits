@@ -149,7 +149,7 @@ function CustomerTransactionDetails() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 p-6">
+        <div className="min-h-screen bg-slate-50 p-4 sm:p-6">
             <div className="mx-auto max-w-7xl">
 
                 {/* Back */}
@@ -463,11 +463,10 @@ function TransactionSection({
                                             {/* Amount */}
                                             <td className="px-6 py-4 text-right">
                                                 <span
-                                                    className={`text-sm font-semibold ${
-                                                        type === "payment"
-                                                            ? "text-emerald-600"
-                                                            : "text-red-500"
-                                                    }`}
+                                                    className={`text-sm font-semibold ${type === "payment"
+                                                        ? "text-emerald-600"
+                                                        : "text-red-500"
+                                                        }`}
                                                 >
                                                     {type === "payment"
                                                         ? "+"
@@ -498,34 +497,26 @@ function TransactionSection({
                                     className="p-5"
                                 >
 
-                                    <div className="flex items-start justify-between gap-4">
-
-                                        <div>
-                                            <p className="font-mono text-sm font-medium text-slate-700">
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div className="min-w-0 flex-1">
+                                            <p className="break-all font-mono text-sm font-medium text-slate-700">
                                                 {transaction.transactionId}
                                             </p>
 
-                                            <p className="mt-1 text-xs text-slate-400">
-                                                Order:{" "}
-                                                {transaction.orderId}
+                                            <p className="mt-1 break-all text-xs text-slate-400">
+                                                Order: {transaction.orderId}
                                             </p>
                                         </div>
 
                                         <p
-                                            className={`text-sm font-bold ${
-                                                type === "payment"
+                                            className={`shrink-0 whitespace-nowrap text-sm font-bold ${type === "payment"
                                                     ? "text-emerald-600"
                                                     : "text-red-500"
-                                            }`}
+                                                }`}
                                         >
-                                            {type === "payment"
-                                                ? "+"
-                                                : "-"}
-                                            {formatAmount(
-                                                transaction.totalAmount
-                                            )}
+                                            {type === "payment" ? "+" : "-"}
+                                            {formatAmount(transaction.totalAmount)}
                                         </p>
-
                                     </div>
 
                                     <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">

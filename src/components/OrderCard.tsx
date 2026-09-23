@@ -1,4 +1,4 @@
-import {ArrowRight,BookOpen,CalendarDays,IndianRupee,} from "lucide-react";
+import { ArrowRight, BookOpen, CalendarDays, IndianRupee, } from "lucide-react";
 import type { Order } from "../types/order";
 
 interface OrderCardProps {
@@ -27,12 +27,12 @@ const OrderCard = ({
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 
                 <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                        <span className="truncate text-sm font-semibold text-slate-900">
+                    <div className="flex min-w-0 items-center gap-2">
+                        <span className="min-w-0 truncate text-sm font-semibold text-slate-900">
                             {order.orderNumber}
                         </span>
 
-                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-slate-500">
+                        <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-slate-500">
                             Order
                         </span>
                     </div>
@@ -43,7 +43,7 @@ const OrderCard = ({
                     </div>
                 </div>
 
-                <div className="flex items-center gap-1 text-base font-bold text-slate-900">
+                <div className="flex shrink-0 items-center gap-1 whitespace-nowrap text-base font-bold text-slate-900">
                     <IndianRupee size={16} />
                     {order.totalAmount.toLocaleString("en-IN", {
                         minimumFractionDigits: 2,
@@ -61,17 +61,17 @@ const OrderCard = ({
                 </span>
             </div>
 
-            <div className="mt-4 flex items-start gap-2">
+            <div className="mt-4 flex min-w-0 items-start gap-2">
                 <BookOpen
                     size={15}
                     className="mt-0.5 shrink-0 text-slate-800"
                 />
 
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
                     {order.items.map((item) => (
                         <span
                             key={item.bookId}
-                            className="rounded-md bg-slate-50 px-2 py-1 text-xs text-slate-800"
+                            className="max-w-full break-words rounded-md bg-slate-50 px-2 py-1 text-xs text-slate-800"
                         >
                             {item.bookName}
                         </span>

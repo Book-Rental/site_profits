@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowUpRight, BookOpen, IndianRupee, RotateCcw, TrendingUp, } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, BookOpen, RotateCcw, TrendingUp, } from "lucide-react";
 import type { WidgetOptions } from "../../index.widget";
 import { useProfitSummary } from "../../hooks/useProfitSummary";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ const ProfitDashboard = ({
                         <div className="mt-3 h-4 w-80 animate-pulse rounded bg-slate-200" />
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                         {[1, 2, 3, 4, 5].map((item) => (
                             <div
                                 key={item}
@@ -97,7 +97,7 @@ const ProfitDashboard = ({
     }
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="bg-slate-50">
             <main className="p-4 sm:p-6 lg:p-8">
                 <div className="mx-auto max-w-7xl">
                     <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -108,7 +108,7 @@ const ProfitDashboard = ({
                                 </div>
 
                                 <div>
-                                    <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                                    <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
                                         Site Profit
                                     </h1>
 
@@ -122,9 +122,9 @@ const ProfitDashboard = ({
 
                     {/* Current Site Earnings */}
                     <div className="mb-6 rounded-2xl border border-slate-200 bg-white px-6 py-5 shadow-sm sm:px-7">
-                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                             {/* Left */}
-                            <div className="flex items-center gap-4">
+                            <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-4">
                                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                                     <TrendingUp size={21} />
                                 </div>
@@ -143,9 +143,9 @@ const ProfitDashboard = ({
                             </div>
 
                             {/* Right */}
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center justify-between gap-3 sm:justify-end sm:gap-4">
                                 <div className="text-right">
-                                    <p className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                                    <p className="whitespace-nowrap text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
                                         {formatAmount(profit.remainingAmount)}
                                     </p>
 
@@ -177,7 +177,7 @@ const ProfitDashboard = ({
                                 Total Orders
                             </p>
 
-                            <p className="mt-1 text-2xl font-bold text-slate-900">
+                            <p className="mt-1 text-xl font-bold sm:text-2xl text-slate-900">
                                 {profit.totalOrders.toLocaleString("en-IN")}
                             </p>
 
@@ -201,7 +201,7 @@ const ProfitDashboard = ({
                                 Total Payments
                             </p>
 
-                            <p className="mt-1 text-2xl font-bold text-slate-900">
+                            <p className="mt-1 text-xl font-bold sm:text-2xl text-slate-900">
                                 {formatAmount(profit.totalCustomerPayments)}
                             </p>
 
@@ -225,7 +225,7 @@ const ProfitDashboard = ({
                                 Seller Payouts
                             </p>
 
-                            <p className="mt-1 text-2xl font-bold text-slate-900">
+                            <p className="mt-1 text-xl font-bold sm:text-2xl text-slate-900">
                                 {formatAmount(profit.totalSellerPayout)}
                             </p>
 
@@ -249,7 +249,7 @@ const ProfitDashboard = ({
                                 Customer Refunds
                             </p>
 
-                            <p className="mt-1 text-2xl font-bold text-slate-900">
+                            <p className="mt-1 text-xl font-bold sm:text-2xl text-slate-900">
                                 {formatAmount(profit.totalRefund)}
                             </p>
 
@@ -271,7 +271,7 @@ const ProfitDashboard = ({
                         </div>
 
                         <div className="divide-y divide-slate-100">
-                            <div className="flex items-center justify-between px-6 py-4">
+                            <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                                 <div>
                                     <button
                                         onClick={() => navigate("/orders")}
@@ -286,12 +286,12 @@ const ProfitDashboard = ({
                                     </p>
                                 </div>
 
-                                <span className="font-semibold text-emerald-600">
+                                <span className="whitespace-nowrap self-start font-semibold text-emerald-600 sm:self-auto">
                                     +{formatAmount(profit.totalCustomerPayments)}
                                 </span>
                             </div>
 
-                            <div className="flex items-center justify-between px-6 py-4">
+                            <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                                 <div>
                                     <button
                                         onClick={() => navigate("/seller-payouts")}
@@ -311,7 +311,7 @@ const ProfitDashboard = ({
                                 </span>
                             </div>
 
-                            <div className="flex items-center justify-between px-6 py-4">
+                            <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                                 <div>
                                     <button
                                         onClick={() => navigate("/customer-summary")}
@@ -331,7 +331,7 @@ const ProfitDashboard = ({
                                 </span>
                             </div>
 
-                            <div className="flex items-center justify-between bg-slate-50 px-6 py-5">
+                            <div className="flex flex-col gap-3 bg-slate-50 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                                 <div>
                                     <p className="text-sm font-semibold text-slate-900">
                                         Site Earnings
@@ -342,7 +342,7 @@ const ProfitDashboard = ({
                                     </p>
                                 </div>
 
-                                <span className="text-lg font-bold text-emerald-600">
+                                <span className="whitespace-nowrap self-start font-semibold text-emerald-600 sm:self-auto">
                                     {formatAmount(profit.remainingAmount)}
                                 </span>
                             </div>
