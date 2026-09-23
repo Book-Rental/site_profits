@@ -61,7 +61,6 @@ function SellerPayouts() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
       <div className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <button
@@ -85,7 +84,6 @@ function SellerPayouts() {
       </div>
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        {/* Loading */}
         {isLoading && (
           <div className="space-y-6">
             <div className="h-32 animate-pulse rounded-2xl bg-slate-200" />
@@ -103,7 +101,6 @@ function SellerPayouts() {
           </div>
         )}
 
-        {/* Error */}
         {isError && !isLoading && (
           <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
             <p className="font-semibold text-red-700">
@@ -124,10 +121,8 @@ function SellerPayouts() {
           </div>
         )}
 
-        {/* Data */}
         {!isLoading && !isError && payoutData && (
           <div className="space-y-6">
-            {/* Summary */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex min-w-0 items-start justify-between gap-4">
@@ -174,7 +169,6 @@ function SellerPayouts() {
               </div>
             </div>
 
-            {/* Seller table */}
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-4">
                 <div className="min-w-0">
@@ -220,7 +214,6 @@ function SellerPayouts() {
                 </div>
               ) : (
                 <>
-                  {/* Desktop */}
                   <div className="hidden overflow-x-auto md:block">
                     <table className="w-full min-w-[760px]">
                       <thead>
@@ -253,7 +246,34 @@ function SellerPayouts() {
                           return (
                             <tr
                               key={seller.sellerId}
-                              className="border-t border-slate-100 transition hover:bg-slate-50"
+                              onClick={() =>
+                                navigate(
+                                  `/seller-payouts/${seller.sellerId}`,
+                                  {
+                                    state: {
+                                      seller,
+                                    },
+                                  }
+                                )
+                              }
+                              onKeyDown={(event) => {
+                                if (
+                                  event.key === "Enter" ||
+                                  event.key === " "
+                                ) {
+                                  navigate(
+                                    `/seller-payouts/${seller.sellerId}`,
+                                    {
+                                      state: {
+                                        seller,
+                                      },
+                                    }
+                                  );
+                                }
+                              }}
+                              tabIndex={0}
+                              role="button"
+                              className="cursor-pointer border-t border-slate-100 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
                             >
                               <td className="px-5 py-4">
                                 <div className="flex items-center gap-3">
@@ -265,6 +285,7 @@ function SellerPayouts() {
                                       onError={(event) => {
                                         event.currentTarget.style.display =
                                           "none";
+
                                         event.currentTarget.nextElementSibling?.classList.remove(
                                           "hidden"
                                         );
@@ -303,16 +324,8 @@ function SellerPayouts() {
                               </td>
 
                               <td className="px-5 py-4 text-center">
-                                <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-slate-800">
-                                  <button
-                                    type="button"
-                                    onClick={() =>
-                                      navigate(`/seller-payouts/${seller.sellerId}`)
-                                    }
-                                    className="font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-                                  >
-                                    {seller.payoutCount}
-                                  </button>
+                                <span className="font-semibold text-blue-600">
+                                  {seller.payoutCount}
                                 </span>
                               </td>
 
@@ -328,7 +341,6 @@ function SellerPayouts() {
                     </table>
                   </div>
 
-                  {/* Mobile */}
                   <div className="divide-y divide-slate-100 md:hidden">
                     {payoutData.sellers.map((seller) => {
                       const sellerName = getSellerName(
@@ -339,18 +351,46 @@ function SellerPayouts() {
                       return (
                         <div
                           key={seller.sellerId}
-                          className="p-5"
+                          onClick={() =>
+                            navigate(
+                              `/seller-payouts/${seller.sellerId}`,
+                              {
+                                state: {
+                                  seller,
+                                },
+                              }
+                            )
+                          }
+                          onKeyDown={(event) => {
+                            if (
+                              event.key === "Enter" ||
+                              event.key === " "
+                            ) {
+                              navigate(
+                                `/seller-payouts/${seller.sellerId}`,
+                                {
+                                  state: {
+                                    seller,
+                                  },
+                                }
+                              );
+                            }
+                          }}
+                          tabIndex={0}
+                          role="button"
+                          className="cursor-pointer p-5 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
                         >
                           <div className="flex min-w-0 items-start justify-between gap-3">
-                            <div className="flex items-center gap-3">
+                            <div className="flex min-w-0 items-center gap-3">
                               {seller.profilePic ? (
                                 <img
                                   src={seller.profilePic}
                                   alt={sellerName}
-                                  className="h-11 w-11 rounded-full object-cover"
+                                  className="h-11 w-11 shrink-0 rounded-full object-cover"
                                   onError={(event) => {
                                     event.currentTarget.style.display =
                                       "none";
+
                                     event.currentTarget.nextElementSibling?.classList.remove(
                                       "hidden"
                                     );
@@ -397,15 +437,9 @@ function SellerPayouts() {
                               Number of payouts
                             </span>
 
-                            <button
-                              type="button"
-                              onClick={() =>
-                                navigate(`/seller-payouts/${seller.sellerId}`)
-                              }
-                              className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-                            >
+                            <span className="text-sm font-semibold text-blue-600">
                               {seller.payoutCount}
-                            </button>
+                            </span>
                           </div>
                         </div>
                       );

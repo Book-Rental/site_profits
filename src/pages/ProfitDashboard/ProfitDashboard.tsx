@@ -120,10 +120,8 @@ const ProfitDashboard = ({
                         </div>
                     </div>
 
-                    {/* Current Site Earnings */}
                     <div className="mb-6 rounded-2xl border border-slate-200 bg-white px-6 py-5 shadow-sm sm:px-7">
                         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                            {/* Left */}
                             <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-4">
                                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                                     <TrendingUp size={21} />
@@ -142,7 +140,6 @@ const ProfitDashboard = ({
                                 </div>
                             </div>
 
-                            {/* Right */}
                             <div className="flex items-center justify-between gap-3 sm:justify-end sm:gap-4">
                                 <div className="text-right">
                                     <p className="whitespace-nowrap text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
@@ -271,16 +268,16 @@ const ProfitDashboard = ({
                         </div>
 
                         <div className="divide-y divide-slate-100">
-                            <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                            <button
+                                type="button"
+                                onClick={() => navigate("/orders")}
+                                className="flex w-full flex-col gap-3 px-5 py-4 text-left transition hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+                            >
                                 <div>
-                                    <button
-                                        onClick={() => navigate("/orders")}
-                                        className="w-full text-left"
-                                    >
-                                        <p className="text-sm font-medium text-slate-900">
-                                            Total Payments
-                                        </p>
-                                    </button>
+                                    <p className="text-sm font-medium text-slate-900">
+                                        Total Payments
+                                    </p>
+
                                     <p className="mt-1 text-xs text-slate-800">
                                         Money received from customers
                                     </p>
@@ -289,47 +286,47 @@ const ProfitDashboard = ({
                                 <span className="whitespace-nowrap self-start font-semibold text-emerald-600 sm:self-auto">
                                     +{formatAmount(profit.totalCustomerPayments)}
                                 </span>
-                            </div>
+                            </button>
 
-                            <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                            <button
+                                type="button"
+                                onClick={() => navigate("/seller-payouts")}
+                                className="flex w-full flex-col gap-3 px-5 py-4 text-left transition hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+                            >
                                 <div>
-                                    <button
-                                        onClick={() => navigate("/seller-payouts")}
-                                        className="w-full text-left"
-                                    >
-                                        <p className="text-sm font-medium text-slate-900">
-                                            Seller Payouts
-                                        </p>
-                                    </button>
+                                    <p className="text-sm font-medium text-slate-900">
+                                        Seller Payouts
+                                    </p>
+
                                     <p className="mt-1 text-xs text-slate-800">
                                         Money paid to sellers
                                     </p>
                                 </div>
 
-                                <span className="font-semibold text-red-500">
+                                <span className="whitespace-nowrap font-semibold text-red-500">
                                     -{formatAmount(profit.totalSellerPayout)}
                                 </span>
-                            </div>
+                            </button>
 
-                            <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                            <button
+                                type="button"
+                                onClick={() => navigate("/customer-summary")}
+                                className="flex w-full flex-col gap-3 px-5 py-4 text-left transition hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+                            >
                                 <div>
-                                    <button
-                                        onClick={() => navigate("/customer-summary")}
-                                        className="w-full text-left"
-                                    >
-                                        <p className="text-sm font-medium text-slate-900">
-                                            Customer Refunds
-                                        </p>
-                                    </button>
+                                    <p className="text-sm font-medium text-slate-900">
+                                        Customer Refunds
+                                    </p>
+
                                     <p className="mt-1 text-xs text-slate-800">
                                         Money returned to customers
                                     </p>
                                 </div>
 
-                                <span className="font-semibold text-red-500">
+                                <span className="whitespace-nowrap font-semibold text-red-500">
                                     -{formatAmount(profit.totalRefund)}
                                 </span>
-                            </div>
+                            </button>
 
                             <div className="flex flex-col gap-3 bg-slate-50 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                                 <div>

@@ -67,7 +67,6 @@ function CustomerSummary() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
       <div className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <button
@@ -91,7 +90,6 @@ function CustomerSummary() {
       </div>
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        {/* Loading */}
         {isLoading && (
           <div className="space-y-6">
             <div className="grid gap-4 sm:grid-cols-3">
@@ -116,7 +114,6 @@ function CustomerSummary() {
           </div>
         )}
 
-        {/* Error */}
         {isError && !isLoading && (
           <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
             <p className="font-semibold text-red-700">
@@ -138,12 +135,9 @@ function CustomerSummary() {
           </div>
         )}
 
-        {/* Data */}
         {!isLoading && !isError && customerData && (
           <div className="space-y-6">
-            {/* Summary Cards */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Total Payments */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex items-start justify-between">
                   <div>
@@ -164,7 +158,6 @@ function CustomerSummary() {
                 </div>
               </div>
 
-              {/* Refunds */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex items-start justify-between">
                   <div>
@@ -189,7 +182,6 @@ function CustomerSummary() {
                 </div>
               </div>
 
-              {/* Net Amount */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="flex items-start justify-between">
                   <div>
@@ -213,7 +205,6 @@ function CustomerSummary() {
               </div>
             </div>
 
-            {/* Customer Breakdown */}
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
                 <div>
@@ -259,7 +250,6 @@ function CustomerSummary() {
                 </div>
               ) : (
                 <>
-                  {/* Desktop Table */}
                   <div className="hidden overflow-x-auto md:block">
                     <table className="w-full">
                       <thead>
@@ -302,21 +292,41 @@ function CustomerSummary() {
                             return (
                               <tr
                                 key={customer.customerId}
-                                className="border-t border-slate-100 transition hover:bg-slate-50"
+                                onClick={() =>
+                                  navigate(
+                                    `/customer-summary/${customer.customerId}/payments`,
+                                    {
+                                      state: {
+                                        customer,
+                                      },
+                                    }
+                                  )
+                                }
+                                onKeyDown={(event) => {
+                                  if (event.key === "Enter" || event.key === " ") {
+                                    navigate(
+                                      `/customer-summary/${customer.customerId}/payments`,
+                                      {
+                                        state: {
+                                          customer,
+                                        },
+                                      }
+                                    );
+                                  }
+                                }}
+                                tabIndex={0}
+                                role="button"
+                                className="cursor-pointer border-t border-slate-100 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
                               >
-                                {/* Customer */}
                                 <td className="px-5 py-4">
                                   <div className="flex items-center gap-3">
                                     {customer.profilePic ? (
                                       <img
-                                        src={
-                                          customer.profilePic
-                                        }
+                                        src={customer.profilePic}
                                         alt={customerName}
                                         className="h-10 w-10 rounded-full object-cover"
                                         onError={(event) => {
-                                          event.currentTarget.style.display =
-                                            "none";
+                                          event.currentTarget.style.display = "none";
 
                                           event.currentTarget.nextElementSibling?.classList.remove(
                                             "hidden"
@@ -326,9 +336,7 @@ function CustomerSummary() {
                                     ) : null}
 
                                     <div
-                                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-600 ${customer.profilePic
-                                        ? "hidden"
-                                        : ""
+                                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-600 ${customer.profilePic ? "hidden" : ""
                                         }`}
                                     >
                                       {getInitials(
@@ -337,77 +345,45 @@ function CustomerSummary() {
                                       )}
                                     </div>
 
-                                    <div>
+                                    <div className="min-w-0">
                                       <p className="font-medium text-slate-900">
                                         {customerName}
                                       </p>
 
-                                      <p className="text-xs text-slate-800">
-                                        {customer.email ||
-                                          customer.customerId}
+                                      <p className="truncate text-xs text-slate-800">
+                                        {customer.email || customer.customerId}
                                       </p>
                                     </div>
                                   </div>
                                 </td>
 
-                                {/* Payment Count */}
                                 <td className="px-5 py-4 text-center">
-                                  <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-slate-800">
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        navigate(
-                                          `/customer-summary/${customer.customerId}/payments`
-                                        )
-                                      }
-                                      className="font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-                                    >
-                                      {customer.paymentCount}
-                                    </button>
+                                  <span className="font-semibold text-blue-600">
+                                    {customer.paymentCount}
                                   </span>
                                 </td>
 
-                                {/* Refund Count */}
                                 <td className="px-5 py-4 text-center">
-                                  <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold text-slate-800">
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        navigate(
-                                          `/customer-summary/${customer.customerId}/refunds`
-                                        )
-                                      }
-                                      className="font-semibold text-red-500 hover:text-red-600 hover:underline"
-                                    >
-                                      {customer.refundCount}
-                                    </button>
+                                  <span className="font-semibold text-red-500">
+                                    {customer.refundCount}
                                   </span>
                                 </td>
 
-                                {/* Total Paid */}
                                 <td className="px-5 py-4 text-right">
                                   <span className="font-semibold text-slate-900">
-                                    {formatAmount(
-                                      customer.totalPaid
-                                    )}
+                                    {formatAmount(customer.totalPaid)}
                                   </span>
                                 </td>
 
-                                {/* Refunded */}
                                 <td className="px-5 py-4 text-right">
                                   <span className="font-medium text-slate-800">
-                                    {formatAmount(
-                                      customer.totalRefunded
-                                    )}
+                                    {formatAmount(customer.totalRefunded)}
                                   </span>
                                 </td>
 
-                                {/* Net */}
                                 <td className="px-5 py-4 text-right">
                                   <span className="font-bold text-slate-900">
-                                    {formatAmount(
-                                      customer.netAmount
-                                    )}
+                                    {formatAmount(customer.netAmount)}
                                   </span>
                                 </td>
                               </tr>
@@ -418,7 +394,6 @@ function CustomerSummary() {
                     </table>
                   </div>
 
-                  {/* Mobile Cards */}
                   <div className="divide-y divide-slate-100 md:hidden">
                     {customerData.customers.map(
                       (customer) => {
@@ -431,20 +406,41 @@ function CustomerSummary() {
                         return (
                           <div
                             key={customer.customerId}
-                            className="p-5"
+                            onClick={() =>
+                              navigate(
+                                `/customer-summary/${customer.customerId}/payments`,
+                                {
+                                  state: {
+                                    customer,
+                                  },
+                                }
+                              )
+                            }
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter" || event.key === " ") {
+                                navigate(
+                                  `/customer-summary/${customer.customerId}/payments`,
+                                  {
+                                    state: {
+                                      customer,
+                                    },
+                                  }
+                                );
+                              }
+                            }}
+                            tabIndex={0}
+                            role="button"
+                            className="cursor-pointer p-5 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
                           >
-                            <div className="flex items-start justify-between gap-4">
-                              <div className="flex items-center gap-3">
+                            <div className="flex min-w-0 items-start justify-between gap-4">
+                              <div className="flex min-w-0 items-center gap-3">
                                 {customer.profilePic ? (
                                   <img
-                                    src={
-                                      customer.profilePic
-                                    }
+                                    src={customer.profilePic}
                                     alt={customerName}
-                                    className="h-11 w-11 rounded-full object-cover"
+                                    className="h-11 w-11 shrink-0 rounded-full object-cover"
                                     onError={(event) => {
-                                      event.currentTarget.style.display =
-                                        "none";
+                                      event.currentTarget.style.display = "none";
 
                                       event.currentTarget.nextElementSibling?.classList.remove(
                                         "hidden"
@@ -454,9 +450,7 @@ function CustomerSummary() {
                                 ) : null}
 
                                 <div
-                                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-600 ${customer.profilePic
-                                    ? "hidden"
-                                    : ""
+                                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-600 ${customer.profilePic ? "hidden" : ""
                                     }`}
                                 >
                                   {getInitials(
@@ -465,27 +459,24 @@ function CustomerSummary() {
                                   )}
                                 </div>
 
-                                <div>
-                                  <p className="font-semibold text-slate-900">
+                                <div className="min-w-0">
+                                  <p className="truncate font-semibold text-slate-900">
                                     {customerName}
                                   </p>
 
-                                  <p className="mt-0.5 text-xs text-slate-400">
-                                    {customer.email ||
-                                      "No email available"}
+                                  <p className="mt-0.5 truncate text-xs text-slate-400">
+                                    {customer.email || "No email available"}
                                   </p>
                                 </div>
                               </div>
 
-                              <div className="text-right">
+                              <div className="shrink-0 text-right">
                                 <p className="text-xs text-slate-400">
                                   Net Amount
                                 </p>
 
                                 <p className="mt-1 font-bold text-slate-900">
-                                  {formatAmount(
-                                    customer.netAmount
-                                  )}
+                                  {formatAmount(customer.netAmount)}
                                 </p>
                               </div>
                             </div>
@@ -497,9 +488,7 @@ function CustomerSummary() {
                                 </p>
 
                                 <p className="mt-1 text-sm font-semibold text-slate-700">
-                                  {formatAmount(
-                                    customer.totalPaid
-                                  )}
+                                  {formatAmount(customer.totalPaid)}
                                 </p>
                               </div>
 
@@ -509,9 +498,7 @@ function CustomerSummary() {
                                 </p>
 
                                 <p className="mt-1 text-sm font-semibold text-slate-700">
-                                  {formatAmount(
-                                    customer.totalRefunded
-                                  )}
+                                  {formatAmount(customer.totalRefunded)}
                                 </p>
                               </div>
                             </div>
@@ -522,28 +509,7 @@ function CustomerSummary() {
                               </span>
 
                               <span className="text-sm font-semibold text-slate-700">
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    navigate(
-                                      `/customer-summary/${customer.customerId}/payments`
-                                    )
-                                  }
-                                  className="font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-                                >
-                                  {customer.paymentCount}
-                                </button> /{" "}
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    navigate(
-                                      `/customer-summary/${customer.customerId}/refunds`
-                                    )
-                                  }
-                                  className="font-semibold text-red-500 hover:text-red-600 hover:underline"
-                                >
-                                  {customer.refundCount}
-                                </button>
+                                {customer.paymentCount} / {customer.refundCount}
                               </span>
                             </div>
                           </div>
