@@ -1,9 +1,9 @@
 export interface ProfitSummary {
     totalOrders: number;
-    totalCreditedAmount: number;
-    totalCustomerPayments : number;
+    totalCustomerPayments: number;
     totalSellerPayout: number;
     totalRefund: number;
+    totalLogisticsPayout: number;
     totalDebitedAmount: number;
     remainingAmount: number;
 }
